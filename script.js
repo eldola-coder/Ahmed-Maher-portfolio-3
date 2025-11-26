@@ -56,135 +56,23 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 // Navbar background change on scroll
 window.addEventListener("scroll", () => {
   const header = document.querySelector("header");
+  const isDarkMode = document.body.classList.contains("dark-theme");
+
   if (window.scrollY > 100) {
-    header.style.backgroundColor = "rgba(255, 255, 255, 0.98)";
+    if (isDarkMode) {
+      header.style.backgroundColor = "rgba(15, 23, 42, 0.98)";
+    } else {
+      header.style.backgroundColor = "rgba(255, 255, 255, 0.98)";
+    }
     header.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.1)";
   } else {
-    header.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
+    if (isDarkMode) {
+      header.style.backgroundColor = "rgba(15, 23, 42, 0.95)";
+    } else {
+      header.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
+    }
     header.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.1)";
   }
-});
-
-// Dark/Light Mode Toggle
-const themeSwitch = document.getElementById("theme-switch");
-const body = document.body;
-
-// Check for saved theme preference or respect OS preference
-const savedTheme =
-  localStorage.getItem("theme") ||
-  (window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light");
-
-if (savedTheme === "dark") {
-  body.setAttribute("data-theme", "dark");
-  themeSwitch.checked = true;
-} else {
-  body.setAttribute("data-theme", "light");
-  themeSwitch.checked = false;
-}
-
-themeSwitch.addEventListener("change", function () {
-  if (this.checked) {
-    body.setAttribute("data-theme", "dark");
-    localStorage.setItem("theme", "dark");
-  } else {
-    body.setAttribute("data-theme", "light");
-    localStorage.setItem("theme", "light");
-  }
-});
-
-// Particles.js Configuration
-particlesJS("particles-js", {
-  particles: {
-    number: {
-      value: 80,
-      density: {
-        enable: true,
-        value_area: 800,
-      },
-    },
-    color: {
-      value: "#2563eb",
-    },
-    shape: {
-      type: "circle",
-      stroke: {
-        width: 0,
-        color: "#000000",
-      },
-      polygon: {
-        nb_sides: 5,
-      },
-    },
-    opacity: {
-      value: 0.5,
-      random: true,
-      anim: {
-        enable: true,
-        speed: 1,
-        opacity_min: 0.1,
-        sync: false,
-      },
-    },
-    size: {
-      value: 3,
-      random: true,
-      anim: {
-        enable: true,
-        speed: 2,
-        size_min: 0.1,
-        sync: false,
-      },
-    },
-    line_linked: {
-      enable: true,
-      distance: 150,
-      color: "#2563eb",
-      opacity: 0.4,
-      width: 1,
-    },
-    move: {
-      enable: true,
-      speed: 2,
-      direction: "none",
-      random: true,
-      straight: false,
-      out_mode: "out",
-      bounce: false,
-      attract: {
-        enable: false,
-        rotateX: 600,
-        rotateY: 1200,
-      },
-    },
-  },
-  interactivity: {
-    detect_on: "canvas",
-    events: {
-      onhover: {
-        enable: false, // Disable hover interactions
-        mode: "grab",
-      },
-      onclick: {
-        enable: false, // Disable click interactions
-        mode: "push",
-      },
-      resize: true,
-    },
-    modes: {
-      grab: {
-        distance: 140,
-        line_linked: {
-          opacity: 1,
-        },
-      },
-      push: {
-        particles_nb: 4,
-      },
-    },
-  },
-  retina_detect: true,
 });
 
 // Animation on scroll
@@ -206,10 +94,145 @@ document.querySelectorAll("section").forEach((section) => {
   observer.observe(section);
 });
 
-// Add initial animation class to hero section
+// Add animation classes to elements
 document.addEventListener("DOMContentLoaded", () => {
+  // Add initial animation class to hero section
   const heroContent = document.querySelector(".hero-content");
   if (heroContent) {
     heroContent.classList.add("animate-in");
+  }
+});
+
+// Initialize Particles.js
+document.addEventListener("DOMContentLoaded", function () {
+  particlesJS("particles-js", {
+    particles: {
+      number: {
+        value: 80,
+        density: {
+          enable: true,
+          value_area: 800,
+        },
+      },
+      color: {
+        value: ["#2563eb", "#f59e0b", "#64748b"],
+      },
+      shape: {
+        type: "circle",
+        stroke: {
+          width: 0,
+          color: "#000000",
+        },
+        polygon: {
+          nb_sides: 5,
+        },
+      },
+      opacity: {
+        value: 0.5,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 1,
+          opacity_min: 0.1,
+          sync: false,
+        },
+      },
+      size: {
+        value: 3,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 2,
+          size_min: 0.1,
+          sync: false,
+        },
+      },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#2563eb",
+        opacity: 0.2,
+        width: 1,
+      },
+      move: {
+        enable: true,
+        speed: 1,
+        direction: "none",
+        random: true,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
+        attract: {
+          enable: false,
+          rotateX: 600,
+          rotateY: 1200,
+        },
+      },
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: {
+          enable: true,
+          mode: "grab",
+        },
+        onclick: {
+          enable: true,
+          mode: "push",
+        },
+        resize: true,
+      },
+      modes: {
+        grab: {
+          distance: 140,
+          line_linked: {
+            opacity: 0.5,
+          },
+        },
+        bubble: {
+          distance: 400,
+          size: 40,
+          duration: 2,
+          opacity: 8,
+          speed: 3,
+        },
+        repulse: {
+          distance: 200,
+          duration: 0.4,
+        },
+        push: {
+          particles_nb: 4,
+        },
+        remove: {
+          particles_nb: 2,
+        },
+      },
+    },
+    retina_detect: true,
+  });
+});
+
+// Theme Toggle Functionality
+const themeSwitch = document.getElementById("theme-switch");
+const header = document.querySelector("header");
+
+// Check for saved theme preference or default to light
+const currentTheme = localStorage.getItem("theme") || "light";
+
+if (currentTheme === "dark") {
+  themeSwitch.checked = true;
+  document.body.classList.add("dark-theme");
+  header.style.backgroundColor = "rgba(15, 23, 42, 0.95)";
+}
+
+themeSwitch.addEventListener("change", function () {
+  if (this.checked) {
+    document.body.classList.add("dark-theme");
+    header.style.backgroundColor = "rgba(15, 23, 42, 0.95)";
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.body.classList.remove("dark-theme");
+    header.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
+    localStorage.setItem("theme", "light");
   }
 });
